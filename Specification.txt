@@ -1,0 +1,18 @@
+A cél egy webscraping alkalmazás fejlesztése hierarhikus kurzusanyagok letöltésére:
+Az anyag kurzusokból (Course) áll, minden Course Modulokból és minden Modul Lessonökből áll.
+A hierarchia szintjeinek megfelelően szeretném fájlstruktúrákba letölteni az anyagokat, tehát minden Course-ra létrejön
+egy mappa, ebben minden modulra egy mappa, ezekbe pedig a Lesson-ök fájljai kerülnek mentésre. Szeretnék továbbá egy
+katalógust, ami képes eltárolni, hogy mely Course-ok, Module-ok és Lesson-ök kerültek letöltésre, továbbá, hogy ezek
+közül melyek készültek el. Egy Lesson elkészült, ha le lett töltve, egy Modul elkészült, ha minden Lesson-je elkészült
+és ugyanígy egy Course akkor készült el, ha minden Module-ja elkészült. Erre azért van szükség, hogy ha esetleg a futás
+elhasal, ne kezdje előről a már letöltött egységek letöltését a program, mivel ez felesleges lépések sorát jelentené a
+weblapokon.
+
+Triviális megoldás, hogy a legfelső szinten van egy katalógus, ami egy JSON-ben tárolja az adatokat. Legfelső szinten
+egy lista, melynek minden objektuma egy Course-ot reprezentál, ennek két kulcsa a Modulok száma és a modulok listája.
+A modulok listájában vannak a modulok adatait tároló objektumok, melyeknek egy kulcsa van, a "lessons", melynek értéke
+a lesson-ök listája. Ebben True-False értékek jelzik azt, hogy az adott sorszámú Lesson sikeresen le lett-e töltve.
+Onnan lehet megállapítani, hogy egy modul letöltése sikeres, hogy minden lesson-jére True érték szerepel a katalógusban.
+A kurzusok esetében szintén kitétel, hogy csak akkor tekinthető késznek, ha minden modulja is annak tekinthető, viszont
+mivel a modulokat egyesével lehet katalogizálni, ezért azt is meg kell vizsgálni, hogy regisztrálva lett-e minden modul
+a kurzushoz.
